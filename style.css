@@ -1,0 +1,74 @@
+body {
+    background-color: #0b0e11;
+    color: #eaecef;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 16px;
+}
+
+/* Шапка: Аватар слева, Кнопка справа */
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #1e2329;
+    border: 1px solid #007bff;
+}
+
+.nickname {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.top-up-btn {
+    background: #1e2329;
+    color: #f3ba2f; /* Желтый цвет звезд */
+    border: 1px solid #f3ba2f;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Центральный баланс */
+.main-balance {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+}
+
+.stars-val { color: #f3ba2f; }
+.divider { color: #474d57; margin: 0 10px; }
+.coins-val { color: #007bff; }
+
+/* Список валют */
+.market-title {
+    color: #848e9c;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.empty-market {
+    text-align: center;
+    color: #848e9c;
+    padding: 40px 0;
+    border-top: 1px solid #2b3139;
+}
+
