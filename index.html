@@ -4,12 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>NGT Market</title>
+    
     <link rel="stylesheet" href="style.css">
+    
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        /* Добавим пару стилей прямо сюда для быстрого теста графиков */
+        #chart-container {
+            width: 100%;
+            height: 250px;
+            margin-top: 20px;
+            display: none; /* Скрыто, пока не нажмем на монету */
+        }
+    </style>
 </head>
 <body>
     <div id="app-root"></div>
 
+    <div id="trade-screen" style="display: none;">
+        <div class="trade-header">
+            <button onclick="backToMarket()">← Назад</button>
+            <div id="coin-logo-large">💎</div>
+            <h1 id="coin-price-large">1.72 ⭐</h1>
+        </div>
+
+        <div class="trade-actions">
+            <div class="action-btn buy" onclick="buyProcess()">
+                <div class="icon">🛒</div>
+                <span>Buy</span>
+            </div>
+            <div class="action-btn sell" onclick="sellProcess()">
+                <div class="icon">💵</div>
+                <span>Sell</span>
+            </div>
+        </div>
+
+        <div id="chart-container">
+            <canvas id="mainChart"></canvas>
+        </div>
+        
+        <div class="timeframes">
+            <button>1Д</button>
+            <button>7Д</button>
+            <button>1М</button>
+        </div>
+    </div>
+
     <script type="module" src="app.js"></script>
 </body>
 </html>
+
