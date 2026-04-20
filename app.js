@@ -6,8 +6,8 @@ tg.expand();
 
 let currentChart = null;
 
-// Главная функция отрисовки
 const renderApp = () => {
+    const user = tg.initDataUnsafe?.user;
     const root = document.getElementById('app-root');
     const tradeScreen = document.getElementById('trade-screen');
     
@@ -19,7 +19,8 @@ const renderApp = () => {
     root.innerHTML = `
         <div class="header-top">
             <div class="profile-section">
-                <span class="nickname">Алижан</span>
+                <img src="${user?.photo_url || 'https://via.placeholder.com/100'}" class="avatar">
+                <span class="nickname">${user?.first_name || 'Алижан'}</span>
             </div>
             <button class="top-up-btn">+⭐</button>
         </div>
@@ -45,7 +46,6 @@ const renderApp = () => {
     `;
 };
 
-// Открытие окна торговли
 window.openTrade = (symbol) => {
     const coin = state.currencies.find(c => c.symbol === symbol);
     if (!coin) return;
@@ -56,19 +56,15 @@ window.openTrade = (symbol) => {
 
     document.getElementById('coin-logo-large').innerText = coin.icon || '💎';
     document.getElementById('coin-price-large').innerText = `${coin.price.toFixed(2)} ⭐`;
-    
-    // Показываем контейнер графика
     document.getElementById('chart-container').style.display = 'block';
 
     initChart(coin);
 };
 
-// Функция возврата (Кнопка "Назад")
 window.backToMarket = () => {
     renderApp();
 };
 
-// Логика графика
 function initChart(coin) {
     const ctx = document.getElementById('mainChart').getContext('2d');
     if (currentChart) currentChart.destroy();
@@ -107,12 +103,13 @@ function initChart(coin) {
     });
 }
 
-// Кнопки Buy/Sell
 window.buyProcess = () => {
-    const activeSymbol = document.querySelector('.coin-symbol')?.innerText || 'NGR';
-    const coin = state.currencies.find(c => c.symbol === activeSymbol);
+    const activePriceText = document.getElementById('coin-price-large').innerText;
+    const symbol = document.querySelector('.coin-symbol')?.innerText || 'NGR';
+    const coin = state.currencies.find(c => c.symbol === symbol);
+    
     if (coin) {
-        coin.price *= 1.05; // Рост 5%
+        coin.price *= 1.02; // +2% за покупку
         coin.history.push(coin.price);
         document.getElementById('coin-price-large').innerText = `${coin.price.toFixed(2)} ⭐`;
         initChart(coin);
@@ -121,10 +118,11 @@ window.buyProcess = () => {
 };
 
 window.sellProcess = () => {
-    const activeSymbol = document.querySelector('.coin-symbol')?.innerText || 'NGR';
-    const coin = state.currencies.find(c => c.symbol === activeSymbol);
+    const symbol = document.querySelector('.coin-symbol')?.innerText || 'NGR';
+    const coin = state.currencies.find(c => c.symbol === symbol);
+    
     if (coin) {
-        coin.price *= 0.95; // Падение 5%
+        coin.price *= 0.98; // -2% за продажу
         coin.history.push(coin.price);
         document.getElementById('coin-price-large').innerText = `${coin.price.toFixed(2)} ⭐`;
         initChart(coin);
@@ -132,6 +130,5 @@ window.sellProcess = () => {
     }
 };
 
-// Запуск приложения
 renderApp();
 
